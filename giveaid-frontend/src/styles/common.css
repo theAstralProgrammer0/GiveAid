@@ -1,0 +1,20 @@
+.container {
+  @apply max-w-7xl mx-auto p-6;
+}
+
+.header {
+  @apply text-center py-4;
+}
+
+.section-title {
+  @apply text-2xl font-semibold mb-4;
+}
+
+.text-large {
+  @apply text-lg mb-4;
+}
+
+.bg-light {
+  @apply bg-gray-100;
+}
+
