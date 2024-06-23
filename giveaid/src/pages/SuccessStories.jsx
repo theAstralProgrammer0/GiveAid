@@ -3,7 +3,7 @@ import React from 'react';
 
 const SuccessStories = () => {
   return (
-    <section id="success-stories" className="success-stories-container bg-light container mx-auto py-16">
+    <section id="success-stories" className="success-stories-container bg-light container mx-auto py-16 px-4 sm:px-8">
       <h2 className="text-2xl font-semibold mb-4 text-center">Success Stories</h2>
       <p className="text-lg mb-4 text-center">These stories are just a glimpse of the incredible difference your donations make.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

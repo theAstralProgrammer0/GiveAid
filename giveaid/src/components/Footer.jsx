@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 
 const Footer = () => {
   return (
-    <nav className="bg-gray-800 text-white shadow-md fixed w-full bottom-0">
+    <nav className="bg-gray-800 text-white shadow-md w-full bottom-0">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <img src="https://via.placeholder.com/100" alt="Logo" className="h-10" />

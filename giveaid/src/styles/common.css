@@ -1,6 +1,6 @@
 /* src/styles/common.css */
 .container {
-  @apply max-w-7xl mx-auto p-6;
+  @apply max-w-7xl mx-auto p-6 m-6;
 }
 
 .header {

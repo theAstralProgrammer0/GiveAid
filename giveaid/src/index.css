@@ -3,8 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  @apply bg-white text-gray-900 dark:bg-palette-background dark:text-palette-text;
+}
+
+#root {
+  @apply mx-auto;
 }
 

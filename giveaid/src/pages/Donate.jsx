@@ -3,7 +3,7 @@ import React from 'react';
 
 const Donate = () => {
   return (
-    <section id="donate" className="donate-container bg-light container mx-auto py-16">
+    <section id="donate" className="donate-container bg-light container mx-auto py-16 px-4 sm:px-8">
       <h2 className="text-2xl font-semibold mb-4 text-center">Donate Now</h2>
       <p className="text-lg mb-4 text-center">Support a child in need. Make a meaningful connection. Help break the cycle of poverty.</p>
       <form className="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

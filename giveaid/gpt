@@ -1,0 +1,804 @@
+From my application's codebase, show me the files I should make the necessary
+changes to starting from my application's root directory to achieve the following:
+
+0. I want the my entire single page app to maintain an auto margin from the viewport width.
+1. I want to be able to populate a list of colors named palette and select from
+   it in my code anytime. Show me how to use it in any file type.
+2. I want to style my navbar component such that it only occupies 66.2% of vw.
+3. I want to style my navbar component to be rounded at the sides like a pill shape.
+4. I want to style the navbar component to have its navbar links inside it
+   center-aligned, and with some padding at both sides of the component
+5. I want to style the navbar except the 'Contact Us' navbar link to be
+   contained in a pill shape just like
+   the navbar component itself, but their boundaries should be invisible except when hovered on.
+   When hovered on, the opacity of the background should change.
+6. I want the 'Home', 'Donate', 'Success Stories', and 'About Us' navbar links
+   to be spaced apart evenly but positioned at the left of the navbar component.
+   The 'Contact Us' navbar link must be positioned inside the navbar component
+   as the right-most element.
+7. I want the 'Contact Us' navbar link to have a 'message envelope icon' within its boundaries.
+8. I want the app's logo on the left side and outside the boundaries of the
+   navbar component. It must be 10% of vw wide and center-aligned with the navbar component.
+
+giveaid/package.json:
+```
+{
+  "name": "giveaid",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.23.1",
+    "redux": "^5.0.1",
+    "tailwindcss": "^3.4.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "run": "npx tailwindcss -i ./scr/input.css -o ./dist/output.css --watch",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "@reduxjs/toolkit": "^2.2.5",
+    "autoprefixer": "^10.4.19",
+    "css-loader": "^7.1.2",
+    "postcss": "^8.4.38",
+    "postcss-loader": "^8.1.1",
+    "react-icons": "^5.2.1",
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.9.0",
+    "react-typed": "^2.0.12",
+    "tailwindcss": "^3.4.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+```
+
+giveaid/postcss.config.js:
+```
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+giveaid/tailwind.config.js:
+```
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: 'class',
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+giveaid/public/index.html:
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
+```
+
+giveaid/src/App.jsx:
+```
+/* src/App.jsx */
+import React, { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Donate from './pages/Donate';
+import Volunteer from './pages/Volunteer';
+import SuccessStories from './pages/SuccessStories';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+
+const App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  return (
+    <div className={isDarkMode ? 'dark' : ''}>
+      <BrowserRouter>
+        <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+        <div className="pt-16">
+          <Home />
+          <Donate />
+          <Volunteer />
+          <SuccessStories />
+          <AboutUs />
+          <ContactUs />
+        </div>
+        <Footer />
+      </BrowserRouter>
+    </div>
+  );
+};
+
+export default App;
+```
+
+giveaid/src/index.css:
+```
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+}
+```
+
+giveaid/src/index.jsx:
+```
+/* src/index.jsx */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import App from './App';
+import './index.css';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
+giveaid/src/assets/
+
+giveaid/src/components/Navbar.jsx:
+```
+/* src/components/Navbar.jsx */
+import React from 'react';
+import { Link } from 'react-scroll';
+import { FiSun, FiMoon } from 'react-icons/fi';
+
+const Navbar = ({ toggleDarkMode, isDarkMode }) => {
+  return (
+    <nav className="bg-white dark:bg-gray-800 shadow-md fixed w-full z-50">
+      <div className="container mx-auto p-4 flex justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <img src="https://via.placeholder.com/100" alt="Logo" className="h-10" />
+          <ul className="flex space-x-4">
+            <li>
+              <Link to="home" smooth={true} duration={500} className="cursor-pointer">Home</Link>
+            </li>
+            <li>
+              <Link to="donate" smooth={true} duration={500} className="cursor-pointer">Donate</Link>
+            </li>
+            <li>
+              <Link to="volunteer" smooth={true} duration={500} className="cursor-pointer">Volunteer</Link>
+            </li>
+            <li>
+              <Link to="success-stories" smooth={true} duration={500} className="cursor-pointer">Success Stories</Link>
+            </li>
+            <li>
+              <Link to="about-us" smooth={true} duration={500} className="cursor-pointer">About Us</Link>
+            </li>
+            <li>
+              <Link to="contact-us" smooth={true} duration={500} className="cursor-pointer">Contact Us</Link>
+            </li>
+          </ul>
+        </div>
+        <button onClick={toggleDarkMode} className="text-xl">
+          {isDarkMode ? <FiSun /> : <FiMoon />}
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+giveaid/src/components/Footer.jsx:
+```
+/* src/components/Footer.jsx */
+import React from 'react';
+import { Link } from 'react-scroll';
+
+const Footer = () => {
+  return (
+    <nav className="bg-gray-800 text-white shadow-md fixed w-full bottom-0">
+      <div className="container mx-auto p-4 flex justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <img src="https://via.placeholder.com/100" alt="Logo" className="h-10" />
+          <ul className="flex space-x-4">
+            <li>
+              <Link to="home" smooth={true} duration={500} className="cursor-pointer">Home</Link>
+            </li>
+            <li>
+              <Link to="donate" smooth={true} duration={500} className="cursor-pointer">Donate</Link>
+            </li>
+            <li>
+              <Link to="volunteer" smooth={true} duration={500} className="cursor-pointer">Volunteer</Link>
+            </li>
+            <li>
+              <Link to="success-stories" smooth={true} duration={500} className="cursor-pointer">Success Stories</Link>
+            </li>
+            <li>
+              <Link to="about-us" smooth={true} duration={500} className="cursor-pointer">About Us</Link>
+            </li>
+            <li>
+              <Link to="contact-us" smooth={true} duration={500} className="cursor-pointer">Contact Us</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Footer;
+```
+
+giveaid/src/pages/AboutUs.jsx:
+```
+import React from 'react';
+
+const AboutUs = () => {
+  return (
+    <section id="about-us" className="about-us-container bg-light container mx-auto py-16">
+      <h2 className="text-2xl font-semibold mb-4 text-center">About Us</h2>
+      <p className="text-lg mb-4 text-center">Our mission is to transform global suffering into opportunities for positive change.</p>
+      <div className="max-w-4xl mx-auto">
+        <p className="mb-4">At GiveAid, we believe in transforming global suffering into opportunities for positive change through the power of technology and human compassion. Our mission is to provide a seamless and efficient platform that connects individuals and corporations with meaningful causes, enabling them to contribute effectively and make a tangible impact on communities, particularly in Africa.</p>
+        <p className="mb-4">GiveAid is a dedicated team of professionals, volunteers, and philanthropists driven by a shared passion for making the world a better place. Founded on the principles of transparency, accountability, and innovation, we are committed to ensuring that every donation reaches those who need it most. Our diverse team brings together expertise from various fields, including technology, nonprofit management, and community development, to create a platform that is both effective and trustworthy.</p>
+        <p className="mb-4">We envision a world where every individual and corporation actively participates in reducing global suffering. Through our accessible donation platform, we aim to foster a compassionate, equitable, and prosperous future for all. We strive to create a global community where giving is a shared value, and every contribution makes a difference.</p>
+      </div>
+    </section>
+  );
+};
+
+export default AboutUs;
+```
+
+giveaid/src/pages/ContactUs.jsx:
+```
+/* src/pages/ContactUs.jsx */
+import React from 'react';
+
+const ContactUs = () => {
+  return (
+    <section id="contact-us" className="contact-us-container bg-light container mx-auto py-16">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Contact Us</h2>
+      <p className="text-lg mb-4 text-center">Get in touch with us for any queries or support.</p>
+      <form className="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            placeholder="Your Name"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="Your Email"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
+            Message
+          </label>
+          <textarea
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="message"
+            placeholder="Your Message"
+            rows="5"
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+          >
+            Send
+          </button>
+        </div>
+      </form>
+    </section>
+  );
+};
+
+export default ContactUs;
+```
+
+giveaid/src/pages/Donate.jsx:
+```
+import React from 'react';
+
+const Donate = () => {
+  return (
+    <section id="donate" className="donate-container bg-light container mx-auto py-16">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Donate Now</h2>
+      <p className="text-lg mb-4 text-center">Support a child in need. Make a meaningful connection. Help break the cycle of poverty.</p>
+      <form className="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            placeholder="Your Name"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="Your Email"
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+            Donation Amount
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="amount"
+            type="number"
+            placeholder="Amount in USD"
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+          >
+            Donate
+          </button>
+        </div>
+      </form>
+    </section>
+  );
+};
+
+export default Donate;
+```
+
+giveaid/src/pages/Home.jsx:
+```
+import React from 'react';
+import { ReactTyped } from 'react-typed';
+
+const Home = () => {
+  return (
+    <section id="home" className="home-container bg-light container mx-auto py-16">
+      <header className="text-center py-8">
+        <h1 className="text-4xl font-bold">GiveAid</h1>
+        <ReactTyped
+          strings={['small acts, big change', 'Transforming Lives Through Hope and Service']}
+          typeSpeed={40}
+          backSpeed={50}
+          loop
+          className="text-lg mt-2"
+        />
+      </header>
+      <main>
+        <section className="text-center">
+          <h2 className="text-2xl font-semibold mb-4">Welcome to GiveAid</h2>
+          <p className="text-lg mb-4">Our mission is to harness the power of technology and human compassion for positive change.</p>
+        </section>
+      </main>
+    </section>
+  );
+};
+
+export default Home;
+```
+
+giveaid/src/pages/SuccessStories.jsx:
+```
+import React from 'react';
+
+const SuccessStories = () => {
+  return (
+    <section id="success-stories" className="success-stories-container bg-light container mx-auto py-16">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Success Stories</h2>
+      <p className="text-lg mb-4 text-center">These stories are just a glimpse of the incredible difference your donations make.</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Supporting Women Entrepreneurs</h3>
+          <p className="text-gray-700">In Nigeria, your donations have funded microloans for women entrepreneurs. Meet Bukola, who used her loan to start a small tailoring business. Today, she not only supports her family but also employs three other women from her village.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        <div className="bg-white shadow-md rounded p-6">
+          <h3 className="text-xl font-semibold mb-2">Building Homes, Rebuilding Lives</h3>
+          <p className="text-gray-700">After devastating floods in Ghana, your donations helped rebuild homes for affected families. Now, people like Atsu and his siblings have a safe place to call home. These new houses are symbols of resilience and a fresh start.</p>
+        </div>
+        {/* Add more success stories as needed */}
+      </div>
+    </section>
+  );
+};
+
+export default SuccessStories;
+```
+
+giveaid/src/pages/Volunteer.jsx:
+```
+import React from 'react';
+
+const Volunteer = () => {
+  return (
+    <section id="volunteer" className="volunteer-container bg-light container mx-auto py-16">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Be a Volunteer</h2>
+      <p className="text-lg mb-4 text-center">Join us in making a difference by volunteering for a cause.</p>
+      <form className="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            placeholder="Your Name"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="Your Email"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+            Phone
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="phone"
+            type="text"
+            placeholder="Your Phone Number"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cause">
+            Cause
+          </label>
+          <select
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="cause"
+          >
+            <option>Select a Cause</option>
+            <option>Education</option>
+            <option>Healthcare</option>
+            <option>Community Development</option>
+            {/* Add more options as needed */}
+          </select>
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+          >
+            Volunteer
+          </button>
+        </div>
+      </form>
+    </section>
+  );
+};
+
+export default Volunteer;
+```
+
+giveaid/src/redux/rootReducer.js:
+```
+import { combineReducers } from 'redux';
+import donationsReducer from './slices/donationsSlice';
+import userReducer from './slices/userSlice';
+import causeReducer from './slices/causeSlice';
+
+const rootReducer = combineReducers({
+  donations: donationsReducer,
+  user: userReducer,
+  cause: causeReducer,
+});
+
+export default rootReducer;
+```
+
+giveaid/src/redux/store.js:
+```
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './rootReducer';
+
+const store = configureStore({
+  reducer: rootReducer,
+});
+
+export default store;
+```
+
+giveaid/src/redux/slices/causeSlice.js:
+```
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../../services/api';
+
+export const fetchCauses = createAsyncThunk('cause/fetchCauses', async () => {
+  const response = await api.get('/causes');
+  return response.data;
+});
+
+const causeSlice = createSlice({
+  name: 'cause',
+  initialState: {
+    items: [],
+    status: 'idle',
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCauses.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchCauses.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(fetchCauses.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default causeSlice.reducer;
+```
+
+giveaid/src/redux/slices/donationsSlice.js:
+```
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getDonations } from '../../services/donations';
+
+export const fetchDonations = createAsyncThunk('donations/fetchDonations', async () => {
+  const response = await getDonations();
+  return response;
+});
+
+const donationsSlice = createSlice({
+  name: 'donations',
+  initialState: {
+    items: [],
+    status: 'idle',
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchDonations.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchDonations.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(fetchDonations.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default donationsSlice.reducer;
+```
+
+giveaid/src/redux/slices/userSlice.js:
+```
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../../services/api';
+
+export const fetchUsers = createAsyncThunk('user/fetchUsers', async () => {
+  const response = await api.get('/users');
+  return response.data;
+});
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    items: [],
+    status: 'idle',
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default userSlice.reducer;
+```
+
+giveaid/src/services/api.js:
+```
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'https://api.giveaid.com', // Update with actual base URL
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default api;
+```
+
+giveaid/src/services/donations.js:
+```
+import api from './api';
+
+export const getDonations = async () => {
+  try {
+    const response = await api.get('/donations');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching donations', error);
+    throw error;
+  }
+};
+
+// Define more API service functions as needed
+```
+
+giveaid/src/styles/common.css:
+```
+.container {
+  @apply max-w-7xl mx-auto p-6;
+}
+
+.header {
+  @apply text-center py-4;
+}
+
+.section-title {
+  @apply text-2xl font-semibold mb-4;
+}
+
+.text-large {
+  @apply text-lg mb-4;
+}
+
+.bg-light {
+  @apply bg-gray-100;
+}
+```

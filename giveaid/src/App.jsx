@@ -20,8 +20,9 @@ const App = () => {
   return (
     <div className={isDarkMode ? 'dark' : ''}>
       <BrowserRouter>
-        <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
         <div className="pt-16">
+		  <img src="https://t4.ftcdn.net/jpg/05/04/12/87/240_F_504128713_Te36PxIZxZn6mSKKJoWXMrH1IFTWBGYY.jpg" alt="Logo" className="h-auto w-[10vw] absolute left-4 top-[31.25px] transform rounded-full" />
+          <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
           <Home />
           <Donate />
           <Volunteer />

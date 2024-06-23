@@ -3,7 +3,7 @@ import React from 'react';
 
 const AboutUs = () => {
   return (
-    <section id="about-us" className="about-us-container bg-light container mx-auto py-16">
+    <section id="about-us" className="about-us-container bg-light container mx-auto py-16 px-4 sm:px-8">
       <h2 className="text-2xl font-semibold mb-4 text-center">About Us</h2>
       <p className="text-lg mb-4 text-center">Our mission is to transform global suffering into opportunities for positive change.</p>
       <div className="max-w-4xl mx-auto">
