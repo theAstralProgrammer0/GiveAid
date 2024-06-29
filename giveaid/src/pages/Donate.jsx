@@ -1,3 +1,4 @@
+/* src/pages/Donate.jsx */ 
 import React from 'react';
 import i1 from '../assets/GAtileDonate.jpg';
 import i2 from '../assets/GAVolunteer.jpg';
@@ -64,6 +65,7 @@ const Donate = () => {
               <select
 				className="bg-palette-hash bg-opacity-8 dark:bg-opacity-10 dark:bg-palette-lightDark dark:text-palette-text appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-custom focus:shadow-outline-custom hover:bg-transparent transition duration-300 ease-in-out"
                 id="cause"
+				data-tip="Select the cause you want to support"
               >
                 {causes.map((cause, index) => (
                   <option key={index} value={cause}>{cause}</option>

@@ -21,7 +21,6 @@ const App = () => {
     <div className={isDarkMode ? 'dark' : ''}>
       <BrowserRouter>
         <div className="bg-palette-muted">
-		  <img src="https://t4.ftcdn.net/jpg/05/04/12/87/240_F_504128713_Te36PxIZxZn6mSKKJoWXMrH1IFTWBGYY.jpg" alt="Logo" className="h-20 w-20 fixed absolute left-20 top-[5.25px] transform rounded-full z-30" />
           <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
           <Home />
           <Donate />

@@ -7,6 +7,12 @@ body {
   @apply bg-white text-gray-900 dark:bg-palette-background dark:text-palette-text;
 }
 
+@media screen and (max-width: 1111px) {
+  #nav-strip {
+    display: none !important;
+  }
+}
+
 #root {
   @apply mx-auto;
 }
