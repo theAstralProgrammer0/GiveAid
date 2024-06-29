@@ -4,6 +4,12 @@ module.exports = {
   darkMode: 'class', // Enable class-based dark mode
   theme: {
     extend: {
+      backgroundImage: {
+		  'home-background': "url('./assets/bgHome.jpg')",
+	  },
+      outline: {
+        'custom': '2px solid rgb(88, 218, 62)',
+	  },
       colors: {
         palette: {
 		  light: '#f5f5f5',
@@ -12,18 +18,21 @@ module.exports = {
           accent: '#f43f5e',
           muted: '#6b7280',
 		  dark: '#111827',
-		  hash: '#aaaaaa',
+		  hash: '#cccccc',
+		  black: '#111111',
           major: '#58da3e', // RGB(88, 218, 62)
           majorLight: '#9ef58d', // Light shade of the major theme
           majorDark: '#2f8e2a', // Dark shade of the major theme
           background: '#111827', // Dark mode background
           text: '#ffffff', // Light text for dark mode
-        },
+        }
       },
-    },
+    }
   },
   variants: {
-    extend: {},
+    extend: {
+	  outline: ['focus','hover'],
+    },
   },
   plugins: [],
 };

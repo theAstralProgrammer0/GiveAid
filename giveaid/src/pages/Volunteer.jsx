@@ -3,7 +3,7 @@ import React from 'react';
 
 const Volunteer = () => {
   return (
-    <section id="volunteer" className="volunteer-container bg-light container mx-auto py-16 px-4 sm:px-8">
+    <section id="volunteer" className="volunteer-container -16">
       <h2 className="text-2xl font-semibold mb-4 text-center">Be a Volunteer</h2>
       <p className="text-lg mb-4 text-center">Join us in making a difference by volunteering for a cause.</p>
       <form className="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
