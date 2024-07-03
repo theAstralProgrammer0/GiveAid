@@ -9,20 +9,19 @@ const Home = () => {
 	  <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
 	  <div className="relative z-20 flex flex-col items-center justify-center text-center">
 		  <header className="relative text-center py-8 z-20">
-			<h1 className="text-4xl font-bold text-white">GiveAid</h1>
+			<h1 className="text-[90px] font-bold text-palette-major dark:text-palette-text">GiveAid</h1>
 			<ReactTyped
 			  strings={['...small acts, Big Change', 'Transforming Lives Through Hope and Service']}
 			  typeSpeed={40}
 			  backSpeed={50}
 			  loop
-			  className="text-lg mt-2 text-white"
+			  className="text-lg mt-2 text-palette-major"
 			/>
 		  </header>
 		<main className="relative z-20">
 		  <section className="text-center flex flex-col items-center">
-		    <h2 className="text-2xl font-semibold mb-4 text-white">Welcome to GiveAid</h2>
+		    <h2 className="text-2xl font-semibold mb-4 text-white">Welcome</h2>
 		    <p className="text-lg break mb-4 text-clip mx-20 px-20 pb-20 text-white">
-		      Welcome to giveaid, where we strive to build a more compassionate, equitable, and prosperous future for all.
 		      Our mission is to harness the power of technology and human compassion for positive change.
 		    </p>
 		    <DonateBtn />

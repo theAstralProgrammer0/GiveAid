@@ -3,6 +3,38 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+  @apply mx-auto;
+}
+
+#home {
+  @apply bg-white dark:text-palette-text dark:bg-palette-dark dark:bg-palette-background;
+}
+
+#who-we-are {
+  @apply bg-white dark:text-palette-text dark:bg-palette-dark dark:bg-palette-background;
+}
+
+#volunteer {
+  @apply bg-white dark:text-palette-text dark:bg-palette-dark dark:bg-palette-background;
+}
+
+#success-stories {
+  @apply bg-white dark:text-palette-text dark:bg-palette-dark dark:bg-palette-background;
+}
+
+
+#mission-statement
+#vision-statement {
+ /* comment */
+}
+
+#footer {
+  @apply bg-white dark:text-palette-text dark:bg-palette-dark dark:bg-palette-background;
+}
+
+h2 .text-2xl
+
 body {
   @apply bg-white text-gray-900 dark:bg-palette-background dark:text-palette-text;
 }
@@ -13,7 +45,12 @@ body {
   }
 }
 
-#root {
-  @apply mx-auto;
+
+@media screen and (min-width: 1111px) {
+  #menu-icon,
+  #menu {
+    display: none !important;
+  }
 }
+
 

@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Donate from './pages/Donate';
-import Volunteer from './pages/Volunteer';
-import SuccessStories from './pages/SuccessStories';
-import AboutUs from './pages/AboutUs';
-import ContactUs from './pages/ContactUs';
+import Home from './components/Home';
+import Donate from './components/Donate';
+import Volunteer from './components/Volunteer';
+import SuccessStories from './components/SuccessStories';
+import WhoWeAre from './components/WhoWeAre';
+import ContactUs from './components/ContactUs';
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -20,13 +20,13 @@ const App = () => {
   return (
     <div className={isDarkMode ? 'dark' : ''}>
       <BrowserRouter>
-        <div className="bg-palette-muted">
+        <div className="dark:bg-palette-dark">
           <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
           <Home />
+          <WhoWeAre />
           <Donate />
           <Volunteer />
           <SuccessStories />
-          <AboutUs />
           <ContactUs />
         </div>
         <Footer />
