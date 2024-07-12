@@ -1,0 +1,95 @@
+Backend:
+giveaid_project/
+├── giveaid_project/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py            # Main URL configuration
+│   ├── wsgi.py
+│   ├── manage.py
+│
+├── giveaid/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py           # AppConfig for the giveaid app
+│   ├── models.py         # Models for the giveaid app
+│   ├── tests.py          # Tests for the giveaid app
+│   ├── views.py          # Non-API views (optional)
+│   ├── urls.py           # Non-API URL configuration (optional)
+│
+├── api/
+│   ├── __init__.py
+│   ├── serializers.py    # Serializers for API endpoints
+│   ├── views.py          # API views
+│   ├── urls.py           # API URL configuration
+│   ├── tests.py          # Tests for API endpoints
+│
+└── manage.py              # Django management script
+
+Frontend:
+giveaid/
+├── node_modules/         # Packages and Dependencies
+│
+├── src/                  # Application's source code directory
+│   ├── App.jsx           # Main react application structure file
+│   ├── index.css         # Main react application styles file
+│   ├── index.jsx         # Entry point of the app
+│   ├── assets/           # Directory where static media files are stored
+│   ├── components        # Directory where all react components are stored
+│   │   ├── BackButton.jsx         
+│   │   ├── Boxes.jsx          
+│   │   ├── ContactUs.jsx         
+│   │   ├── Donate.jsx  
+│   │   ├── DonateBtn.jsx  
+│   │   ├── FAQ.jsx  
+│   │   ├── FactualData.jsx  
+│   │   ├── Footer.jsx  
+│   │   ├── ForgotPassword.jsx  
+│   │   ├── Home.jsx  
+│   │   ├── Login.jsx  
+│   │   ├── Modal.jsx  
+│   │   ├── MyDonations.jsx  
+│   │   ├── Navbar.jsx  
+│   │   ├── Profile.jsx  
+│   │   ├── ResetPassword.jsx  
+│   │   ├── Signup.jsx  
+│   │   ├── SuccessStories.jsx  
+│   │   ├── Tile.jsx  
+│   │   ├── TileSection.jsx  
+│   │   ├── Volunteer.jsx  
+│   │   ├── VolunteerBox.jsx  
+│   │   ├── VolunteerBtn.jsx  
+│   │   ├── VolunteerForm.jsx  
+│   │   ├── VolunteerPage.jsx  
+│   │   └── WhoWeAre.jsx  
+│   │
+│   ├── redux
+│   │   ├── rootReducer.js 
+│   │   ├── store.js 
+│   │   └── slices/
+│   │       ├── causeSlice.js
+│   │       ├── donationSlice.js
+│   │       └── userSlice.js
+│   ├── services
+│   │   ├── api.js 
+│   │   └──donations.js 
+│   └── styles
+│       └── common.css 
+│
+├── public/
+│   └── index.html 
+├── package.json          # Node Package Manager json file
+├── package-lock.json
+├── postcss.config.js     # PostCSS Configuration file
+├── tailwind.config.js    # TailwindCSS Configuration file
+└── README.md             
+
+
+Prompt:
+These are the File-Folder Structures for both the Backend and the Frontend of the GiveAid app as it stands currently.
+I want to integrate both the client and server side via api calls. 
+I also want to utilize redux for state management.
+I also want to enable CORS.
+I don't mind adding new files when necessary.
+Answer the question below and wait for my response.
+What file content(s) should I provide for you to have more information on the specifics of what to do regarding all the objectives I mentioned above?
