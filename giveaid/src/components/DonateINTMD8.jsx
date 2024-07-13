@@ -1,26 +1,26 @@
 /* src/components/Donate.jsx */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { initializeDonation, fetchCauses } from '../utils/api';
+import { initializeDonation } from '../utils/api';
 import i1 from '../assets/GAtileDonate.jpg';
 import i2 from '../assets/GAVolunteer.jpg';
 import i3 from '../assets/GAtileDonateSupport.jpg';
 import i4 from '../assets/GAportrait-young-african-boy.jpg';
 
 const Donate = () => {
-  const [causes, setCauses] = useState([]);
-
-  useEffect(() => {
-    const getCauses = async () => {
-      const data = await fetchCauses();
-      setCauses(data);
-    };
-
-    getCauses();
-  }, []);
+  const causes = [
+    'Education',
+    'Health',
+    'Food',
+    'Shelter',
+    'Clean Water',
+    'Clothing',
+    'Child Protection',
+    'Community Development',
+  ];
 
   const tiles = [i1, i2, i3, i4];
 
@@ -115,8 +115,8 @@ const Donate = () => {
                     className="bg-palette-hash bg-opacity-8 dark:bg-palette-dark dark:text-palette-text appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight border-palette-dark focus:outline-custom focus:shadow-outline-custom hover:bg-transparent transition duration-300 ease-in-out"
                   >
                     <option value="">Select a cause</option>
-                    {causes.map((cause) => (
-                      <option key={cause.id} value={cause.id}>{cause.title}</option>
+                    {causes.map((cause, index) => (
+                      <option key={index} value={cause}>{cause}</option>
                     ))}
                   </Field>
                   <ErrorMessage name="cause" component="div" className="text-red-500 text-xs italic" />

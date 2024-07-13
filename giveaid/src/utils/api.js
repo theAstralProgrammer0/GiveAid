@@ -1,45 +1,47 @@
 // src/utils/api.js
 
-import { refreshAccessToken } from './auth';
-
 export const initializeDonation = async (values) => {
-  let token = localStorage.getItem('access_token');
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/donation/create/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
 
-  if (!token) {
-    token = await refreshAccessToken();
-  }
+    const data = await response.json();
 
-  const response = await fetch('http://127.0.0.1:8000/api/donation/create/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify(values),
-  });
-
-  if (response.status === 401) {
-    token = await refreshAccessToken();
-    if (!token) {
-      return await initializeDonation(values);
+    if (!response.ok) {
+      throw new Error(data.message || 'Something went wrong');
     }
-  }
 
-  const data = await response.json();
-  return data;
+    return data;
+  } catch (error) {
+    console.error('Error initializing donation:', error);
+    return { status: false, message: error.message };
+  }
 };
 
+export const fetchCauses = async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/causes/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-/* src/services/api.js */
-/*
-import axios from 'axios';
+    const data = await response.json();
 
-const api = axios.create({
-  baseURL: 'https://api.giveaid.com', // Update with actual base URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+    if (!response.ok) {
+      throw new Error(data.message || 'Something went wrong');
+    }
 
-export default api;
-*/
+    return data;
+  } catch (error) {
+    console.error('Error fetching causes:', error);
+    return [];
+  }
+};
+
