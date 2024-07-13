@@ -1,3 +1,4 @@
+/* src/components/FactualData.jsx */
 import React, { useEffect, useRef, useState } from 'react';
 import CountUp from 'react-countup';
 import { AiOutlineHeart, AiOutlineDollarCircle, AiOutlineFundProjectionScreen, AiOutlineTeam } from 'react-icons/ai';

@@ -1,3 +1,4 @@
+/* src/components/TileSection.jsx */
 import React from 'react'
 import Tile from './Tile'
 

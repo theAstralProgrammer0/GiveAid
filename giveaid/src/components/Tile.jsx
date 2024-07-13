@@ -1,3 +1,4 @@
+/* src/components/Tile.jsx */
 import React from 'react';
 
 const Tile = ({ backgroundImage, title, description }) => {

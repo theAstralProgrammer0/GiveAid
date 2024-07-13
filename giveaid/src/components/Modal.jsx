@@ -1,3 +1,4 @@
+/* src/components/Modal.jsx */
 import React, { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import childImage from '../assets/GAmedium-shot-happy-african-people.jpg'; // Replace with your actual image path

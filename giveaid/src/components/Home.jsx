@@ -1,3 +1,4 @@
+/* src/components/Home.jsx */
 import React from 'react';
 import { ReactTyped } from 'react-typed';
 import DonateBtn from '../components/DonateBtn';

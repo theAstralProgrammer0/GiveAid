@@ -1,8 +1,9 @@
+/* src/components/Boxes */
 import React from 'react';
 
 const Boxes = () => {
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-gray-100 dark:bg-transparent rounded-lg shadow-lg">
+    <div className="max-w-3xl lg:max-w-6xl mx-auto p-6 bg-gray-100 dark:bg-transparent rounded-lg shadow-lg">
       <div className="lg:grid grid-cols-2 gap-4 mb-4">
         <div className="bg-gradient-to-r from-palette-majorLight to-palette-major dark:bg-gradient-to-l dark:from-palette-primary dark:to-palette-secondary dark:bg-opacity-10 dark:bg-palette-lightDark dark:text-palette-text drop-shadow-xl rounded-lg text-dark shadow-sm p-4">
           <h2 className="text-xl text-center text-palette-dark dark:text-palette-text font-bold mb-2">Our Mission</h2>

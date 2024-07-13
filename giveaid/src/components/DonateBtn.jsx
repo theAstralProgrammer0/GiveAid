@@ -1,3 +1,4 @@
+/* src/components/DonateBtn.jsx */
 import { FiArrowDown } from 'react-icons/fi';
 import { Link } from 'react-scroll';
 
