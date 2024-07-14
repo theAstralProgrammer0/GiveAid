@@ -8,6 +8,8 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+ 
+
   const navigate = useNavigate();
 
   const handleScroll = () => {

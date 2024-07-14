@@ -32,6 +32,7 @@ export const fetchCauses = async () => {
     });
 
     const data = await response.json();
+    console.log(data);
 
     if (!response.ok) {
       throw new Error(data.message || 'Something went wrong');
@@ -42,5 +43,32 @@ export const fetchCauses = async () => {
     console.error('Error fetching causes:', error);
     return [];
   }
+};
+
+
+export const forgotPassword = async (values) => {
+  const response = await fetch('http://127.0.0.1:8000/api/user/forgot-password/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(values),
+  });
+
+  const data = await response.json();
+  return data;
+};
+
+export const resetPassword = async (values) => {
+  const response = await fetch('http://127.0.0.1:8000/api/user/reset-password/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(values),
+  });
+
+  const data = await response.json();
+  return data;
 };
 
