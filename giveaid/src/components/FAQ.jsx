@@ -1,5 +1,7 @@
 /* src/components/FAQ.jsx */
 import React, { useState } from 'react';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { CSSTransition } from 'react-transition-group';
 
 const FAQ = () => {
   const [faqs, setFaqs] = useState([
@@ -27,17 +29,27 @@ const FAQ = () => {
   };
 
   return (
-    <div id="faq" className="p-8">
+    <div id="faq" className="p-8 flex flex-col items-center">
       <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
       {faqs.map((faq, index) => (
-        <div key={index} className="mb-4">
-          <button
+        <div key={index} className="mb-4 w-full max-w-4xl">
+          <div
             onClick={() => toggleFAQ(index)}
-            className="text-left w-full text-xl font-semibold"
+            className="cursor-pointer flex justify-between items-center p-4 bg-gray-200 dark:bg-gray-700 rounded-t"
           >
-            {faq.question}
-          </button>
-          {faq.isOpen && <p className="mt-2 pl-4">{faq.answer}</p>}
+            <h3 className="text-xl font-semibold">{faq.question}</h3>
+            {faq.isOpen ? <FiChevronUp /> : <FiChevronDown />}
+          </div>
+          <CSSTransition
+            in={faq.isOpen}
+            timeout={300}
+            classNames="faq"
+            unmountOnExit
+          >
+            <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-b">
+              <p>{faq.answer}</p>
+            </div>
+          </CSSTransition>
         </div>
       ))}
     </div>

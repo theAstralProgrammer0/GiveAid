@@ -8,9 +8,22 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const [profilePicture, setProfilePicture] = useState(null);
  
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch profile pic from API or localStorage
+    const fetchProfilePicture = async () => {
+      const response = await fetch('/api/user/profile-picture');
+      const data = await response.json();
+      setProfilePicture(data.profilePicture);
+    };
+
+    fetchProfilePicture();
+  }, []);
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
@@ -79,8 +92,8 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
             {isDarkMode ? <FiSun /> : <FiMoon />}
           </button>
           <div className="relative ml-4 dropdown">
-            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="text-2xl text-palette-major dark:text-palette-majorLight rounded-full border-2 border-green-500 p-1">
-              <FiUser />
+            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="relative text-2xl text-palette-major dark:text-palette-majorLight rounded-full border-2 border-green-500 p-1">
+              {profilePicture ? <img src={profilePicture} alt="Profile" className="h-10 w-10 rounded-full" /> : <FiUser />}
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-palette-background border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">

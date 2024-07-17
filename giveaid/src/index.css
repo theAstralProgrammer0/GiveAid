@@ -53,4 +53,36 @@ body {
   }
 }
 
+.loader {
+  border-top-color: #3498db;
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.faq-enter {
+  max-height: 0;
+  opacity: 0;
+  transition: all 300ms ease-in;
+}
+.faq-enter-active {
+  max-height: 200px;
+  opacity: 1;
+}
+.faq-exit {
+  max-height: 200px;
+  opacity: 1;
+}
+.faq-exit-active {
+  max-height: 0;
+  opacity: 0;
+  transition: all 300ms ease-in;
+}
 

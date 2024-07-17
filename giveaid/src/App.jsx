@@ -15,6 +15,9 @@ import FAQ from './components/FAQ';
 import Modal from './components/Modal';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import SocialMediaStrip from './components/SocialMediaStrip';
+import { FiArrowUp } from 'react-icons/fi';
+
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -28,6 +31,10 @@ const App = () => {
     setIsModalOpen(false);
   };
 
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = 'scroll';
@@ -39,6 +46,7 @@ const App = () => {
   return (
     <div className={isDarkMode ? 'dark' : ''}>
       <BrowserRouter>
+        <SocialMediaStrip />
         <Routes>
           <Route
             path="/"
@@ -63,6 +71,14 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />} />
           <Route path="/reset-password" element={<ResetPassword toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />} />
         </Routes>
+        <div className="">
+          <button
+            onClick={handleScrollToTop}
+            className="fixed bottom-8 right-8 bg-palette-major text-white p-4 rounded-full shadow-md"
+            >
+            <FiArrowUp />
+          </button>
+        </div>
       </BrowserRouter>
     </div>
   );

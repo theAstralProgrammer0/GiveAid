@@ -1,6 +1,7 @@
 /* src/components/WhoWeAre.jsx */
 import React from 'react';
 import Boxes from './Boxes';
+import EightCharitableCauses from './EightCharitableCauses';
 
 const WhoWeAre = () => {
   return (
@@ -9,8 +10,10 @@ const WhoWeAre = () => {
         <h2 className="w-[62%] text-[71px] font-semibold rounded-lg text-center text-palette-major dark:text-palette-text">Who We Are</h2>
       </div>
       <Boxes />
+      <EightCharitableCauses /> {/* Add Eight Charitable Causes component */}
     </section>
   );
 };
 
 export default WhoWeAre;
+

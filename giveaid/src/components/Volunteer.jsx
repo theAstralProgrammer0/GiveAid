@@ -2,6 +2,7 @@
 import React from 'react';
 import FactualData from './FactualData';
 import VolunteerBox from './VolunteerBox';
+import SponsorCarousel from './SponsorCarousel';
 
 const Volunteer = () => {
   return (
@@ -14,6 +15,9 @@ const Volunteer = () => {
         </div>
         <div id="volunteer-box-container" className="w-full">
           <VolunteerBox />
+        </div>
+        <div className="w-full mt-8">
+          <SponsorCarousel />
         </div>
       </div>
     </section>
