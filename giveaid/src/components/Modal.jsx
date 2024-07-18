@@ -52,7 +52,7 @@ const Modal = ({ onClose }) => {
               </button>
               <button
                 className="px-4 py-2 bg-palette-major text-white rounded-full hover:bg-palette-majorLight transition duration-300 ease-in-out"
-                onClick={() => window.location.href = '/donate'}
+                onClick={() => window.location.href = '#donate'}
               >
                 Donate
               </button>
